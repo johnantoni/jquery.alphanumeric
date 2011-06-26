@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jQuery AlphaNumeric</title>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="jquery.alphanumeric.pack.js"></script>
+
+<style>
+
+body{margin:0px;padding:0px;font-family:Arial,Helvetica,sans-serif;font-size:12px}h1{font-weight:normal;font-size:24px;margin:10px 0px;color:#003366}.container{background:#eee;margin:20px;padding:10px}a{color:#0099FF;text-decoration:none}.sample{background:#ccc;padding:10px;border:1px solid #fff;margin-bottom:10px}h2{margin:10px 0px;font-size:18px;color:#0033FF;font-weight:normal}.code{background:#fff;padding:10px;border-top:5px solid #aaa;margin:10px 0px;display:none}.tb{border:0px;padding:5px;font-size:12px;font-family:Verdana,Arial,Helvetica,sans-serif}.list li{margin-bottom:10px}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>jQuery <b>Alpha</b>Numeric</h1>
+<h2>by Paulo P. Marinas</h2>
+<p>
+	Did you ever found a need where you want to prevent your user from entering certain characters? 
+</p>
+<p>    
+   Looking at the plugins available at jQuery, i found a great plugin by Sam Collet called <a href="http://www.texotela.co.uk/code/jquery/numeric/">Numeric</a>.
+</p>
+<p>
+	But it was too limited, what if I'm asking the user to create a username? or to enter a number with decimals or an IP Address?
+    There is another great plugin called <a href="http://digitalbush.com/projects/masked-input-plugin">Masked Input</a> by Josh Bush,
+    which can also control user input by defining a mask. but the problem was the length of text to be input must be defined as well.
+    Again, what if I needed to control input of a username? I can't tell how many characters the user will be using, and I can't force him to use just 8 characters
+    ,so I created <b>AlphaNumeric</b>.
+</p>
+<p>
+	<strong>jQuery AlphaNumeric</strong> is a javascript control plugin that allows you to limit what characters a user can enter on textboxes or textareas. Have fun.
+</p>
+<h2>You can download the plugin and these examples <a href="alphanumeric.zip">here</a></h2>
+<div class="sample">
+
+    <h2>Examples</h2>
+
+	<ol class="list">
+    
+    <li>
+        <b>Allow only alphanumeric characters</b>
+      	<input type="text" class="sample1 tb" size="10" />
+
+	 	<a href="#" class="vcode">+ Toggle Code</a>
+		<div class="code">$('.sample1').alphanumeric();</div>
+    </li>
+    <li>
+        <b>Allow only alphanumeric characters, and some exceptions like dot(.), comma (,) and space</b>
+      	<input type="text" class="sample2 tb" size="10" />
+
+	 	<a href="#" class="vcode">+ Toggle Code</a>
+		<div class="code">$('.sample2').alphanumeric({allow:"., "});</div>
+    </li>
+    <li>
+        <b>Allow only lowercase alpha characters</b>
+      	<input type="text" class="sample3 tb" size="10" />
+
+	 	<a href="#" class="vcode">+ Toggle Code</a>
+		<div class="code">$('.sample3').alpha({nocaps:true});</div>
+    </li>
+    <li>
+        <b>Allow only numeric characters</b>
+      	<input type="text" class="sample4 tb" size="10" />
+
+	 	<a href="#" class="vcode">+ Toggle Code</a>
+		<div class="code">$('.sample4').numeric();</div>
+    </li>
+    <li>
+        <b>Allow only numeric characters, and some exceptions like dot (.)</b>
+      	<input type="text" class="sample5 tb" size="10" />
+
+	 	<a href="#" class="vcode">+ Toggle Code</a>
+		<div class="code">$('.sample5').numeric({allow:"."});</div>
+    </li>
+    <li>
+        <b>Make a custom rule and define only certain characters to prevent, like dot (.), one (1), and a (a)</b>
+      	<input type="text" class="sample6 tb" size="10" />
+
+	 	<a href="#" class="vcode">+ Toggle Code</a>
+		<div class="code">$('.sample6').alphanumeric({ichars:'.1a'});</div>
+    </li>
+	</ol>
+
+</div>
+
+<h2>API Functions</h2>
+
+<ol>
+	<li><b>alphanumeric</b> - allow both alphabet and numeric characters</li>
+    <li><b>alpha</b> - allow only alphabet characters</li>
+    <li><b>numeric</b> - allow only numeric characters</li>
+</ol>
+
+<h2>API Properties</h2>
+
+<ol>
+	<li><b>allow</b> - add excempted characters to the rule of prevention</li>
+    <li><b>ichars</b> - define a custome set of characters to prevent</li>
+    <li><b>allcaps</b> - allow only capital letters to be entered</li>
+    <li><b>nocaps</b> - allow only lowercase characters to be entered</li>
+</ol>
+
+
+<div style="clear:both"></div>
+
+</div>
+<script type="text/javascript">
+
+$('.vcode').click(function(){$(this).next().toggle('slow'); return false;});
+
+$('.sample1').alphanumeric();
+$('.sample2').alphanumeric({allow:"., "});
+$('.sample3').alpha({nocaps:true});
+$('.sample4').numeric();
+$('.sample5').numeric({allow:"."});
+$('.sample6').alphanumeric({ichars:'.1a'});
+
+
+</script>
+
+
+</body>
+</html>
