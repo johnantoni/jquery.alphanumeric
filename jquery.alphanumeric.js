@@ -1,82 +1,72 @@
-(function($){
+(function ($) {
+    $.fn.alphanumeric = function (p) {
+        var input = $(this),
+            az = "abcdefghijklmnopqrstuvwxyz",
+            options = $.extend({
+                ichars: '!@#$%^&*()+=[]\\\';,/{}|":<>?~`.- _',
+                nchars: '',
+                allow: ''
+            }, p),
+            s = options.allow.split(''),
+            i = 0,
+            ch,
+            regex;
 
-	$.fn.alphanumeric = function(p) { 
+        for (i; i < s.length; i++) {
+            if (options.ichars.indexOf(s[i]) != -1) {
+                s[i] = '\\' + s[i];
+            }
+        }
 
-		p = $.extend({
-			ichars: "!@#$%^&*()+=[]\\\';,/{}|\":<>?~`.- ",
-			nchars: "",
-			allow: ""
-		  }, p);	
+        if (options.nocaps) {
+            options.nchars += az.toUpperCase();
+        }
+        if (options.allcaps) {
+            options.nchars += az;
+        }
 
-		return this.each
-			(
-				function() 
-				{
+        options.allow = s.join('|');
 
-					if (p.nocaps) p.nchars += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-					if (p.allcaps) p.nchars += "abcdefghijklmnopqrstuvwxyz";
-					
-					s = p.allow.split('');
-					for ( i=0;i<s.length;i++) if (p.ichars.indexOf(s[i]) != -1) s[i] = "\\" + s[i];
-					p.allow = s.join('|');
-					
-					var reg = new RegExp(p.allow,'gi');
-					var ch = p.ichars + p.nchars;
-					ch = ch.replace(reg,'');
+        regex = new RegExp(options.allow, 'gi');
+        ch = (options.ichars + options.nchars).replace(regex, '');
 
-					$(this).keypress
-						(
-							function (e)
-								{
-								
-									if (!e.charCode) k = String.fromCharCode(e.which);
-										else k = String.fromCharCode(e.charCode);
-										
-									if (ch.indexOf(k) != -1) e.preventDefault();
-									if (e.ctrlKey&&k=='v') e.preventDefault();
-									
-								}
-								
-						);
-						
-					$(this).bind('contextmenu',function () {return false});
-									
-				}
-			);
+        input.keypress(function (e) {
+            var key = String.fromCharCode(!e.charCode ? e.which : e.charCode);
 
-	};
+            if (ch.indexOf(key) != -1 && !e.ctrlKey) {
+                e.preventDefault();
+            }
+        });
 
-	$.fn.numeric = function(p) {
-	
-		var az = "abcdefghijklmnopqrstuvwxyz";
-		az += az.toUpperCase();
+        input.blur(function () {
+            var value = input.val(),
+                j = 0;
 
-		p = $.extend({
-			nchars: az
-		  }, p);	
-		  	
-		return this.each (function()
-			{
-				$(this).alphanumeric(p);
-			}
-		);
-			
-	};
-	
-	$.fn.alpha = function(p) {
+            for (j; j < value.length; j++) {
+                if (ch.indexOf(value[j]) != -1) {
+                    input.val('');
+                    return false;
+                }
+            }
+            return false;
+        });
 
-		var nm = "1234567890";
+        return input;
+    };
 
-		p = $.extend({
-			nchars: nm
-		  }, p);	
+    $.fn.numeric = function (p) {
+        var az = 'abcdefghijklmnopqrstuvwxyz',
+            aZ = az.toUpperCase();
 
-		return this.each (function()
-			{
-				$(this).alphanumeric(p);
-			}
-		);
-			
-	};	
+        return this.each(function () {
+            $(this).alphanumeric($.extend({ nchars: az + aZ }, p));
+        });
+    };
 
+    $.fn.alpha = function (p) {
+        var nm = '1234567890';
+        return this.each(function () {
+            $(this).alphanumeric($.extend({ nchars: nm }, p));
+        });
+    };
 })(jQuery);
