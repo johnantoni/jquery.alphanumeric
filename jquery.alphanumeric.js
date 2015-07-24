@@ -33,29 +33,29 @@
         regex = new RegExp(options.allow, 'gi');
         ch = (options.ichars + options.nchars).replace(regex, '');
 
-        input.keypress(function (e) {
- 
-            var key = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+        input
+            .keypress(function (e) {
 
-            if (ch.indexOf(key) != -1 && !e.ctrlKey) {
-                e.preventDefault();
-            }
+                var key = String.fromCharCode(!e.charCode ? e.which : e.charCode);
 
-        });
-
-        input.blur(function () {
-
-            var value = input.val(),
-                j = 0;
-
-            for (j; j < value.length; j++) {
-                if (ch.indexOf(value[j]) != -1) {
-                    input.val('');
-                    return false;
+                if (ch.indexOf(key) != -1 && !e.ctrlKey) {
+                    e.preventDefault();
                 }
-            }
-            return false;
-        });
+
+            })
+            .blur(function () {
+
+                var value = input.val(),
+                    j = 0;
+
+                for (j; j < value.length; j++) {
+                    if (ch.indexOf(value[j]) != -1) {
+                        input.val('');
+                        return false;
+                    }
+                }
+                return false;
+            });
 
         return input;
 
