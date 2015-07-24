@@ -2,7 +2,7 @@
     $.fn.alphanumeric = function (p) {
         var input = $(this),
             //add new letter (ñ, for spanish keyboard) (Felipe Pincheira A.)
-            az = "abcdefghijklmnñopqrstuvwxyz",
+            az = 'abcdefghijklmnñopqrstuvwxyz',
             options = $.extend({
                 //add new characters (¡°¬´¨) (Felipe Pincheira A.)
                 ichars: '!@#$%^&*()+=[]\\\';,/{}|":<>?~`.- _¡°¬´¨',
@@ -23,6 +23,7 @@
         if (options.nocaps) {
             options.nchars += az.toUpperCase();
         }
+
         if (options.allcaps) {
             options.nchars += az;
         }
@@ -33,14 +34,17 @@
         ch = (options.ichars + options.nchars).replace(regex, '');
 
         input.keypress(function (e) {
+ 
             var key = String.fromCharCode(!e.charCode ? e.which : e.charCode);
 
             if (ch.indexOf(key) != -1 && !e.ctrlKey) {
                 e.preventDefault();
             }
+
         });
 
         input.blur(function () {
+
             var value = input.val(),
                 j = 0;
 
@@ -54,6 +58,7 @@
         });
 
         return input;
+
     };
 
     $.fn.numeric = function (p) {
